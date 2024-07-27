@@ -1,0 +1,64 @@
+<div class="my-5 w-full h-full">
+  <h3 class="text-center">
+    Welcom to CinemaPedia <i class="fa-solid fa-film"></i>
+  </h3>
+  <div>
+    <form
+      class="d-flex justify-content-center gap-3 mt-2"
+      (ngSubmit)="search()"
+    >
+      <input
+        type="text"
+        class="form-control border-2 border-dark"
+        style="width: 40%"
+        placeholder="Enter the Show Title"
+        [(ngModel)]="input"
+        name="usearch"
+        (input)="onInputChange()"
+      />
+      <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+  </div>
+
+  <div *ngIf="!showSearch">
+    <div class="my-5 text-center">
+      <h4 class="my-5">
+        Trending Shows
+        <i class="fa-solid fa-fire fa-beat" style="color: #c84646"></i>
+      </h4>
+      <app-series-cards></app-series-cards>
+    </div>
+    <div class="my-5 text-center">
+      <h4 class="my-5">
+        Upcoming Shows
+        <i class="fa-regular fa-calendar fa-bounce" style="color: #87cefa"></i>
+      </h4>
+      <app-upcoming-series-card></app-upcoming-series-card>
+    </div>
+    <div class="my-5 text-center">
+      <h4 class="my-5">
+        Trending Shows
+        <i class="fa-solid fa-star fa-spin" style="color: #ffd700"></i>
+      </h4>
+      <app-top-series-card></app-top-series-card>
+    </div>
+  </div>
+  <div *ngIf="showSearch">
+    <div class="container my-5 text-center">
+      <h5 class="my-3">Your Search Result: {{ showSearch }}</h5>
+      <div class="row">
+        <div
+          class="col-sm-12 col-lg-2 mb-3 col-md-4"
+          *ngFor="let search of searchData"
+        >
+          <img
+            [src]="'https://image.tmdb.org/t/p/w500' + search.poster_path"
+            class="card-img-top img-fluid"
+            alt="Not avaiable"
+            [routerLink]="'/tvshow/' + search.id"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
